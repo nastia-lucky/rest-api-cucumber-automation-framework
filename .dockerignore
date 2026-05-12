@@ -1,0 +1,5 @@
+target
+.idea
+.git
+allure-report
+allure-results
