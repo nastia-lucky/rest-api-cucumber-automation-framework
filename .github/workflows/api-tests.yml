@@ -22,3 +22,24 @@ jobs:
 
       - name: Run smoke tests
         run: mvn clean test -Pprod,smoke
+
+      - name: Upload allure results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results
+          path: target/allure-results
+
+      - name: Upload logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: logs
+          path: target/logs
+
+      - name: Upload surefire reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: surefire-reports
+          path: target/surefire-reports
