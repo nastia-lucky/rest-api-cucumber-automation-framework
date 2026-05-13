@@ -7,6 +7,8 @@ import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.crypto.spec.PSource;
+
 public class Hooks {
 
   private static final Logger logger = LogManager.getLogger();
@@ -53,6 +55,7 @@ public class Hooks {
           "PASSED TEST: {}",
           scenario.getName()
       );
+      System.out.println(scenario.getName());
     }
   }
 }
