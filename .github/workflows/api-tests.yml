@@ -43,3 +43,17 @@ jobs:
         with:
           name: surefire-reports
           path: target/surefire-reports
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@v1.9
+        if: always()
+        with:
+          allure_results: target/allure-results
+          allure_report: allure-report
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-report
+          path: allure-report
