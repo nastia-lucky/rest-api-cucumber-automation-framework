@@ -23,6 +23,13 @@ jobs:
       - name: Build Docker image
         run: docker build -t rest-tests .
 
+      - name: Run tests in Docker
+        run: |
+          docker run \
+            -e ENV=prod \
+            -e TEST_TYPE=smoke \
+            rest-tests
+
       - name: Upload allure results
         uses: actions/upload-artifact@v4
         if: always()
