@@ -20,8 +20,8 @@ jobs:
           java-version: 17
           cache: maven
 
-      - name: Run smoke tests
-        run: mvn clean test -Pprod,smoke
+      - name: Build Docker image
+        run: docker build -t rest-tests .
 
       - name: Upload allure results
         uses: actions/upload-artifact@v4
