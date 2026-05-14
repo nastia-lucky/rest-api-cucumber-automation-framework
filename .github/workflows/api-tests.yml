@@ -28,6 +28,8 @@ jobs:
           docker run \
             -e ENV=prod \
             -e TEST_TYPE=smoke \
+            -v ${{ github.workspace }}/allure-results:/app/target/allure-results \
+            -v ${{ github.workspace }}/logs:/app/target/logs \
             rest-tests
 
       - name: Upload allure results
