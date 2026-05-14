@@ -24,7 +24,10 @@ jobs:
         run: docker build -t rest-tests .
 
       - name: Run tests in Docker
-        run: |
+        run:
+          mkdir -p allure-results
+          mkdir -p logs
+          
           docker run \
             -e ENV=prod \
             -e TEST_TYPE=smoke \
@@ -37,21 +40,14 @@ jobs:
         if: always()
         with:
           name: allure-results
-          path: target/allure-results
+          path: allure-results
 
       - name: Upload logs
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: logs
-          path: target/logs
-
-      - name: Upload surefire reports
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: surefire-reports
-          path: target/surefire-reports
+          path: logs
 
       - name: Install Allure
         if: always()
