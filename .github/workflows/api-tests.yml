@@ -24,7 +24,7 @@ jobs:
         run: docker build -t rest-tests .
 
       - name: Run tests in Docker
-        run:
+        run: |
           mkdir -p allure-results
           mkdir -p logs
           
