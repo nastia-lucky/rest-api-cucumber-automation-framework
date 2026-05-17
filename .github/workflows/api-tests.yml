@@ -27,14 +27,28 @@ jobs:
       - name: Build Docker image
         run: docker build -t rest-tests .
 
-      - name: Run tests in Docker
+      - name: Run smoke tests in Docker
+        if: github.event_name == 'push'
         run: |
           mkdir -p allure-results
           mkdir -p logs
-          
+
           docker run \
             -e ENV=prod \
             -e TEST_TYPE=smoke \
+            -v ${{ github.workspace }}/allure-results:/app/target/allure-results \
+            -v ${{ github.workspace }}/logs:/app/target/logs \
+            rest-tests
+
+      - name: Run regression tests in Docker
+        if: github.event_name == 'pull_request'
+        run: |
+          mkdir -p allure-results
+          mkdir -p logs
+
+          docker run \
+            -e ENV=prod \
+            -e TEST_TYPE=regression \
             -v ${{ github.workspace }}/allure-results:/app/target/allure-results \
             -v ${{ github.workspace }}/logs:/app/target/logs \
             rest-tests
