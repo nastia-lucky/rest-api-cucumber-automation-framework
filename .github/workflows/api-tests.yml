@@ -5,6 +5,10 @@ on:
     branches:
       - '**'
 
+  pull_request:
+    branches:
+      - master
+
 jobs:
   run-api-tests:
     runs-on: ubuntu-latest
