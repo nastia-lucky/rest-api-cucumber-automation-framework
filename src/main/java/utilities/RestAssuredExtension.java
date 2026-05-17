@@ -1,5 +1,6 @@
 package utilities;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
@@ -34,7 +35,8 @@ public class RestAssuredExtension {
         .contentType(ContentType.JSON)
         .accept(ContentType.JSON)
         .filter(new RequestLoggingFilter())
-        .filter(new ResponseLoggingFilter());
+        .filter(new ResponseLoggingFilter())
+        .filter(new AllureRestAssured());
   }
 
   public ResponseOptions<Response> execute(
