@@ -36,8 +36,8 @@ jobs:
           docker run \
             -e ENV=prod \
             -e TEST_TYPE=smoke \
-            -v $PWD/allure-results:/app/target/allure-results \
-            -v $PWD/logs:/app/target/logs \
+            -v ${{ github.workspace }}/allure-results:/app/target/allure-results \
+            -v ${{ github.workspace }}/logs:/app/target/logs \
             rest-tests
 
       - name: Run regression tests in Docker
@@ -49,8 +49,8 @@ jobs:
           docker run \
             -e ENV=prod \
             -e TEST_TYPE=regression \
-            -v "$PWD/allure-results:/app/target/allure-results \
-            -v $PWD/logs:/app/target/logs \
+            -v ${{ github.workspace }}/allure-results:/app/target/allure-results \
+            -v ${{ github.workspace }}/logs:/app/target/logs \
             rest-tests
 
       - name: Upload allure results
