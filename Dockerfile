@@ -8,4 +8,4 @@ RUN mvn dependency:go-offline
 
 COPY . .
 
-CMD sh -c "mvn test -P${ENV},${TEST_TYPE}
+CMD sh -c "mvn test -P${ENV},${TEST_TYPE}"
