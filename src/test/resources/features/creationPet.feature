@@ -3,7 +3,7 @@ Feature: Pet creation
   @smoke @api @regression
   Scenario Outline: check pet with valid data can be created
     When I create a pet with name "<name>", status "<status>", categoryId <categoryId>, categoryName "<categoryName>", tagId <tagId>, tagName "<tagName>", photoURL "<photoURL>"
-    Then I check status code as expected 200
+    Then I check status code as expected 200 for pet
     Then I check by getting pet I get expected code 200
     Then I check got cat the same as created cat
     Then I delete a pet
@@ -25,7 +25,7 @@ Feature: Pet creation
   Scenario Outline: check pet can be deleted
     When I create a pet with name "<name>", status "<status>", categoryId <categoryId>, categoryName "<categoryName>", tagId <tagId>, tagName "<tagName>", photoURL "<photoURL>"
     Then I delete a pet
-    Then I check status code as expected 200
+    Then I check status code as expected 200 for pet
     Then I check by getting pet I get expected code 404
 
     Examples:

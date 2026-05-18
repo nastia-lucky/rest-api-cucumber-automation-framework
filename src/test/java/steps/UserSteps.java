@@ -1,7 +1,7 @@
 package steps;
 
 import assertions.UserAsserts;
-import context.TestContext;
+import context.UserContext;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.Then;
@@ -14,17 +14,16 @@ import java.util.Map;
 
 public class UserSteps {
 
-  private final TestContext testContext;
+  private final UserContext userContext;
   private final UserService userService;
   private final UserAsserts userAsserts;
 
 
-  public UserSteps(TestContext context, UserService userService, UserAsserts userAsserts) {
-    this.testContext = context;
+  public UserSteps(UserContext userContext, UserService userService, UserAsserts userAsserts) {
+    this.userContext = userContext;
     this.userService = userService;
     this.userAsserts = userAsserts;
   }
-
 
   @DataTableType
   public User userEntry(Map<String, String> entry) {
@@ -40,8 +39,8 @@ public class UserSteps {
 
 
   public User getUser(String userName) {
-    testContext.setResponse(userService.getUser(userName));
-    return testContext.getResponse().getBody().as(User.class);
+    userContext.setResponse(userService.getUser(userName));
+    return userContext.getResponse().getBody().as(User.class);
   }
 
 
@@ -49,52 +48,59 @@ public class UserSteps {
   public void createUser(DataTable dataTable) {
     List<User> users = dataTable.asList(User.class);
     User createdUser = users.get(0);
-    testContext.setUser(createdUser);
-    testContext.setResponse(userService.createUser(createdUser));
+    userContext.setUser(createdUser);
+    userContext.setResponse(userService.createUser(createdUser));
   }
 
   @Then("I can get created user by username")
   public void iCanGetCreatedUserByUsername() {
-    testContext.setResponse(userService.getUser(testContext.getUserName()));
-    userAsserts.isStatusCodesEquals(testContext.getCode(), 200);
+    userContext.setResponse(userService.getUser(userContext.getUserName()));
+    userAsserts.isStatusCodesEquals(userContext.getCode(), 200);
   }
 
   @Then("I check got user the same as created user")
   public void iCheckGotUserTheSameAsCreatedUser() {
-    User gotUser = getUser(testContext.getUserName());
-    userAsserts.isUserEquals(gotUser, testContext.getCreatedUser());
+    User gotUser = getUser(userContext.getUserName());
+    userAsserts.isUserEquals(gotUser, userContext.getCreatedUser());
   }
 
   @Then("I delete a user")
   public void iDeleteAUser() {
-    testContext.setResponse(userService.deleteUser(testContext.getUserName()));
+
+    userContext.setResponse(userService.deleteUser(userContext.getUserName()));
   }
 
   @Then("I check I can't get user by userName")
   public void iCheckICanTGetUserByUserName() {
-    testContext.setResponse(userService.getUser(testContext.getUserName()));
-    userAsserts.isStatusCodesEquals(testContext.getCode(), 404);
+    userContext.setResponse(userService.getUser(userContext.getUserName()));
+    userAsserts.isStatusCodesEquals(userContext.getCode(), 404);
   }
 
   @Then("I update the user")
   public void iUpdateTheUser(DataTable table) {
     List<User> users = table.asList(User.class);
     User updatedUser = users.get(0);
-    testContext.setUpdatedUser(updatedUser);
-    testContext.setUserName(updatedUser.getUsername());
-    testContext.setResponse(userService.updateUser(testContext.getUpdatedUser().getUsername(), updatedUser));
+    userContext.setUpdatedUser(updatedUser);
+    userContext.setUserName(updatedUser.getUsername());
+    userContext.setResponse(userService.updateUser(userContext.getUpdatedUser().getUsername(), updatedUser));
   }
 
   @Then("I check got user the same as updated user")
   public void iCheckGotUserStringTheSameAsUpdatedUser() {
-    User gotUser = getUser(testContext.getUserName());
-    userAsserts.isUserEquals(gotUser, testContext.getUpdatedUser());
+    User gotUser = getUser(userContext.getUserName());
+    userAsserts.isUserEquals(gotUser, userContext.getUpdatedUser());
   }
 
   @When("I create a user with firstName {string}, lastName {string}, email {string}, password {string}, phone {string}, userStatus {int}")
   public void iCreateAUserWithIdIdUsernameFirstNameLastNameEmailPasswordPhoneUserStatusUserStatus(String firstname, String lastname, String email, String password, String phone, int userStatus) {
     User user = new User(firstname, lastname, email, password, phone, userStatus);
-    testContext.setUser(user);
-    testContext.setResponse(userService.createUser(testContext.getCreatedUser()));
+    userContext.setUser(user);
+    userContext.setResponse(userService.createUser(userContext.getCreatedUser()));
   }
+
+  @Then("I check status code as expected {int} for user")
+  public void iCheckStatusCodeAsExpected(int statusCode) {
+    userAsserts.isStatusCodesEquals(userContext.getCode(), statusCode);
+  }
+
 }

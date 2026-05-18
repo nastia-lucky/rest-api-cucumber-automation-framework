@@ -1,22 +1,20 @@
 package steps;
 
-import context.TestContext;
+import context.BaseContext;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.crypto.spec.PSource;
-
 public class Hooks {
 
   private static final Logger logger = LogManager.getLogger();
 
 
-  private final TestContext context;
+  private final BaseContext context;
 
-  public Hooks(TestContext context) {
+  public Hooks(BaseContext context) {
     this.context = context;
   }
 
