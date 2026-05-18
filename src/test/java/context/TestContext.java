@@ -20,7 +20,6 @@ public class TestContext {
 
   public void setAddedPet(Pet addedPet) {
     this.addedPet = addedPet;
-    System.out.println( petId);
   }
 
   public void setResponse(ResponseOptions<Response> response) {
