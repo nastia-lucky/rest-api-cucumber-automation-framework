@@ -3,7 +3,7 @@ Feature: User creation
   @smoke @api @regression
   Scenario Outline: check users with valid data can be created
     When I create a user with firstName "<firstName>", lastName "<lastName>", email "<email>", password "<password>", phone "<phone>", userStatus <userStatus>
-    Then I check status code as expected 200
+    Then I check status code as expected 200 for user
     Then I can get created user by username
     Then  I check got user the same as created user
     Then I delete a user
@@ -18,7 +18,7 @@ Feature: User creation
     When I create a user with firstName "<firstName>", lastName "<lastName>", email "<email>", password "<password>", phone "<phone>", userStatus <userStatus>
     Then I can get created user by username
     Then I delete a user
-    Then I check status code as expected 200
+    Then I check status code as expected 200 for user
     Then I check I can't get user by userName
 
     Examples:
@@ -34,7 +34,7 @@ Feature: User creation
     Then I update the user
       | firstName | lastName | email              | password | phone  | userStatus |
       | Micha     | Sopotd   | email@emailupd.com | password | 677776 | 5          |
-    Then I check status code as expected 200
+    Then I check status code as expected 200 for user
     Then I check got user the same as updated user
     Then I delete a user
 
