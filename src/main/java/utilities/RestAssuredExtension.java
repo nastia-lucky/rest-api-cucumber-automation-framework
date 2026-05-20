@@ -17,6 +17,7 @@ public class RestAssuredExtension {
     this.baseUrl = System.getProperty(
         "apiUrl",
         System.getenv("API_URL"));
+    System.out.println(this.baseUrl);
 
     if (baseUrl == null || baseUrl.isBlank()) {
       throw new IllegalStateException(
